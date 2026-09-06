@@ -16,5 +16,5 @@ def train_model(X_train, X_test, artifact_path='models/isolation_forest.pkl') ->
     joblib.dump(model, artifact_path)
 
     return {
-        'model': model,
+        'model': test_predictions,
     }
