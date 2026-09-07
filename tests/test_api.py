@@ -3,14 +3,17 @@ from fastapi.testclient import TestClient
 
 from api.app import app
 
-client = TestClient(app)
+@pytest.fixture
+def client():
+    with TestClient(app) as client:
+        yield client
 
-def test_health_check():
+def test_health_check(client):
     response = client.get('/docs/')
 
     assert response.status_code == 200
 
-def test_predict_normal_data():
+def test_predict_normal_data(client):
     payload = {
         'cpu_usage': 40,
         'memory_usage': 50,
@@ -26,7 +29,7 @@ def test_predict_normal_data():
     assert data['is_anomaly'] is True
     assert data['status'] == 'CRITICAL'
 
-def test_predict_anomaly_data():
+def test_predict_anomaly_data(client):
     payload = {
         'cpu_usage': 99,
         'memory_usage': 99,
@@ -42,7 +45,7 @@ def test_predict_anomaly_data():
     assert data['is_anomaly'] is True
     assert data['status'] == 'CRITICAL'
 
-def test_predict_invalid_input():
+def test_predict_invalid_input(client):
     payload = {
         'cpu_usage': 329,
         'memory_usage': -29,
