@@ -9,7 +9,7 @@ router_v1 = APIRouter(prefix='/api/v1', tags=['TelemetryV1'])
 model_path = 'models/isolation_forest.pkl'
 model = joblib.load(model_path)
 
-@router_v1.post('predict/')
+@router_v1.post('/predict/')
 async def model_prediction(data: InputData):
     input_data = pd.DataFrame([{
         'CPU_Usage': data.cpu_usage,
