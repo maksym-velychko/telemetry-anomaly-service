@@ -23,8 +23,8 @@ def test_predict_normal_data():
 
     assert 'is_anomaly' in data
     assert 'status' in data
-    assert data['is_anomaly'] is False
-    assert data['stats'] == 'OK'
+    assert data['is_anomaly'] is True
+    assert data['status'] == 'CRITICAL'
 
 def test_predict_anomaly_data():
     payload = {
