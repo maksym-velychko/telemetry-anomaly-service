@@ -1,3 +1,5 @@
+from typing import Any
+
 import joblib
 import pandas as pd
 from fastapi import APIRouter
@@ -10,7 +12,7 @@ model_path = 'models/isolation_forest.pkl'
 model = joblib.load(model_path)
 
 @router_v1.post('/predict/')
-async def model_prediction(data: InputData):
+async def model_prediction(data: InputData) -> dict[str, Any]:
     input_data = pd.DataFrame([{
         'CPU_Usage': data.cpu_usage,
         'Memory_Usage': data.memory_usage,

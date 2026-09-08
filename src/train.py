@@ -1,10 +1,11 @@
+from typing import Any
+
 import joblib
-
-from sklearn.pipeline import Pipeline
+import numpy as np
+from numpy.typing import NDArray
 from sklearn.ensemble import IsolationForest
-from sklearn.model_selection import GridSearchCV
 
-def train_model(X_train, X_test, artifact_path='models/isolation_forest.pkl') -> dict:
+def train_model(X_train: NDArray[np.float64], X_test: NDArray[np.float64], artifact_path: str ='models/isolation_forest.pkl') -> dict[str, Any]:
     model = IsolationForest(
         n_estimators=300,
         contamination=0.02,

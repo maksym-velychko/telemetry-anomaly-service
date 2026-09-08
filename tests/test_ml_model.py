@@ -8,7 +8,7 @@ from api.app import app
 client = TestClient(app)
 
 @pytest.fixture
-def mock_ml_model(monkeypatch):
+def mock_ml_model(monkeypatch) -> MagicMock:
     mock = MagicMock()
     mock.predict.return_value = [-1]
 
